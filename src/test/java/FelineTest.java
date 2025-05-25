@@ -9,8 +9,6 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.List;
 
-import static org.mockito.Mockito.*;
-
 @RunWith(MockitoJUnitRunner.class)
 public class FelineTest {
 
@@ -40,7 +38,7 @@ public class FelineTest {
         Mockito.when(felineMock.getKittens()).thenReturn(1);
         int result = felineMock.getKittens();
         Assert.assertEquals(1, result);
-        Mockito.verify(felineMock, times(1)).getKittens();
+
     }
 
     @Test

@@ -1,11 +1,11 @@
 import com.example.Lion;
-import com.example.Predator;
+import com.example.Feline;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.mockito.Mock;
-import org.mockito.Mockito;
+
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -13,8 +13,16 @@ import java.util.Collection;
 @RunWith(Parameterized.class)
 public class LionParameterizedTest {
 
-    String sex;
-    boolean expectedHasMane;
+    @Parameterized.Parameters(name = "Тестовые данные: пол={0}, ожидается мане={1}")
+    public static Collection<Object[]> data() {
+        return Arrays.asList(new Object[][]{
+                {"Самка", false},
+                {"Самец", true}
+        });
+    }
+
+    private String sex;
+    private boolean expectedHasMane;
 
     public LionParameterizedTest(String sex, boolean expectedHasMane) {
         this.sex = sex;
@@ -22,29 +30,12 @@ public class LionParameterizedTest {
     }
 
     @Mock
-    Predator predator;
-
-    @Parameterized.Parameters
-    public static Collection<Object[]> data() {
-        return Arrays.asList(new Object[][] {
-                {"Самка", false},
-                {"Самец", true}
-        });
-    }
+    private Feline feline;
 
     @Test
     public void testDoesHaveMane() throws Exception {
 
-        Lion lion = new Lion(sex, predator);
-
-        Lion mockedLion = Mockito.mock(Lion.class);
-        if ("Самец".equals(sex)) {
-            Mockito.when(mockedLion.doesHaveMane()).thenReturn(true);
-        } else if ("Самка".equals(sex)) {
-            Mockito.when(mockedLion.doesHaveMane()).thenReturn(false);
-        }
-
-        Assert.assertEquals(lion.doesHaveMane(), mockedLion.doesHaveMane());
+        Lion lion = new Lion(sex, feline);
+        Assert.assertEquals(expectedHasMane, lion.doesHaveMane());
     }
-
 }
