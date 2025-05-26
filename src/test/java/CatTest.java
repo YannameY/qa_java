@@ -25,14 +25,14 @@ public class CatTest {
 
     @Test
     public void testGetSound() {
-        Assert.assertEquals("Мяу", cat.getSound());
+        Assert.assertEquals("Звук должен быть 'Мяу'", "Мяу", cat.getSound());
     }
 
     @Test
     public void testGetFood() throws Exception {
+        List<String> expectedFood = List.of("Животные", "Птицы", "Рыба");
         Mockito.when(mockFeline.eatMeat()).thenReturn(List.of("Животные", "Птицы", "Рыба"));
-        Assert.assertEquals(List.of("Животные", "Птицы", "Рыба"),
-                cat.getFood()
-        );
+        Assert.assertEquals("Пища должна быть 'Животные', 'Птицы', 'Рыба'", expectedFood, cat.getFood());
+
     }
 }
